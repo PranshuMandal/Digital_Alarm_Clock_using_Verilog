@@ -1,4 +1,4 @@
-// fpga4student.com FPGA projects, VHDL projects, Verilog project
+
 module aclock (
  input reset,  /* Active high reset pulse, to set the time to the input hour and minute (as defined by the H_in1, H_in0, M_in1, and M_in0 inputs) and the second to 00. It should also set the alarm value to 0.00.00, and to set the Alarm (output) low.For normal operation, this input pin should be 0*/
  input clk,  /* A 10Hz input clock. This should be used to generate each real-time second*/
@@ -21,7 +21,7 @@ module aclock (
  output [3:0]  S_out1, /* The most significant digit of the minute. Valid values are 0 to 5. */
  output [3:0]  S_out0  /* The least significant digit of the minute. Valid values are 0 to 9. */
  );
-// fpga4student.com FPGA projects, VHDL projects, Verilog project
+
  // internal signal
  reg clk_1s; // 1-s clock
  reg [3:0] tmp_1s; // count for creating 1-s clock 
@@ -40,9 +40,7 @@ module aclock (
  reg [3:0] c_sec0,a_sec0;
 /* The least significant minute digit of the temp clock and alarm.*/ 
  
- /************************************************/ 
- /*****************function mod10******************/
- /*************************************************/ 
+
  function [3:0] mod_10;
  input [5:0] number;
  begin
@@ -50,10 +48,7 @@ module aclock (
  end
  endfunction
  
- /*************************************************/ 
- /************* Clock operation**************/
- /*************************************************/ 
-// fpga4student.com FPGA projects, VHDL projects, Verilog project
+ 
  always @(posedge clk_1s or posedge reset )
  begin
  if(reset) begin // reset high => alarm time to 00.00.00, alarm to low, clock to H_in and M_in and S to 00
@@ -66,7 +61,7 @@ module aclock (
  tmp_hour <= H_in1*10 + H_in0;
  tmp_minute <= M_in1*10 + M_in0;
  tmp_second <= 0;
- end 
+ end
  else begin
  if(LD_alarm) begin // LD_alarm =1 => set alarm clock to H_in, M_in
  a_hour1 <= H_in1;
@@ -99,10 +94,7 @@ module aclock (
  end 
  end 
  
- /*************************************************/ 
- /******** Create 1-second clock****************/
- /*************************************************/ 
-// fpga4student.com FPGA projects, VHDL projects, Verilog project
+ 
  always @(posedge clk or posedge reset)
  begin
  if(reset) 
@@ -123,9 +115,7 @@ module aclock (
  end
  end
  
- /*************************************************/ 
- /***OUTPUT OF THE CLOCK**********************/ 
- /*************************************************/ 
+ 
  always @(*) begin
 
  if(tmp_hour>=20) begin
@@ -143,7 +133,7 @@ module aclock (
  c_sec1 = mod_10(tmp_second);
  c_sec0 = tmp_second - c_sec1*10; 
  end
- // fpga4student.com FPGA projects, VHDL projects, Verilog project
+
  assign H_out1 = c_hour1; // the most significant hour digit of the clock
  assign H_out0 = c_hour0; // the least significant hour digit of the clock
  assign M_out1 = c_min1; // the most significant minute digit of the clock
@@ -151,10 +141,7 @@ module aclock (
  assign S_out1 = c_sec1; // the most significant second digit of the clock
  assign S_out0 = c_sec0; // the least significant second digit of the clock 
 
- /*************************************************/ 
- /******** Alarm function******************/
- /*************************************************/ 
-// fpga4student.com FPGA projects, VHDL projects, Verilog project
+
  always @(posedge clk_1s or posedge reset) begin
  if(reset) 
  Alarm <=0; 
