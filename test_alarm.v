@@ -1,5 +1,5 @@
 module test;
-// fpga4student.com FPGA projects, VHDL projects, Verilog project
+
  // Inputs
  reg reset;
  reg clk;
@@ -20,8 +20,7 @@ module test;
  wire [3:0] M_out0;
  wire [3:0] S_out1;
  wire [3:0] S_out0;
-// fpga4student.com FPGA projects, VHDL projects, Verilog project
- // Instantiate the Unit Under Test (UUT)
+
  aclock uut (
  .reset(reset), 
  .clk(clk), 
@@ -100,7 +99,7 @@ module test;
  wait(Alarm); // wait until Alarm signal is high when the alarm time equals clock time
  #1000
  STOP_al = 1;// pulse high the STOP_al to push low the Alarm signal
- // fpga4student.com FPGA projects, VHDL projects, Verilog project
+ 
  end
       
 endmodule
